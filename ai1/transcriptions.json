@@ -1,0 +1,34 @@
+{
+  "CAf732153d85c6d06adb119952f43f077c": {
+    "transcription": " So right now I just got the error done. So the server should probably run without any errors. I think we don't have any problems with that.",
+    "intent": "technical"
+  },
+  "CAb18515254053e507d1b4333b35a7c545": {
+    "transcription": " So right now I'm just saying a lot of training outside Because there's a lot of water in that too and The issue is that you know When when we get the rain? Yeah, let me get the rain. It's gonna be fucked up",
+    "intent": "technical"
+  },
+  "CA996b7c138c984ce4d673c169699bd43e": {
+    "transcription": " Hey, this is Rishikesh. So I recently ordered a new iPhone, which is 17 Pro Max, which comes with black color. So the problem is the battery is very slow.",
+    "intent": "technical"
+  },
+  "CA4dec311b669c78f6fa930d1611cd6170": {
+    "transcription": " Hi, good about you. Oh, this one, right? This one? Yeah. Okay. Okay.",
+    "intent": "unknown"
+  },
+  "CAf92cddb9e52be431f3d3e98bf5e57ae8": {
+    "transcription": " Hey, hi, this is Roshikesh. And look at the order from Starbucks. So the thing is we need to return the orders to them back because they are a lot of expired products.",
+    "intent": "sales"
+  },
+  "CA5181774900fc9e2c84594125d4276df2": {
+    "transcription": " Hey, this is Rishikesh. I recently ran into a problem when I tried to order an iPhone 17 from the Apple store. And the variant is a black color with internal storage of 256. So.",
+    "intent": "technical"
+  },
+  "CAa7168f7ebf8b947684d243687ef08eef": {
+    "transcription": " Hey, hi, this is Rishikesh. So I'm right now developing a software for the call assistance. So basically, I recently ran into a problem. So right now, I'm just trying to see where",
+    "intent": "technical"
+  },
+  "CA21cc71bf373dc00e9276b6ed0f295da6": {
+    "transcription": " Hey, this is Rishikesh and I'm trying to talk to you for an assistance regarding my coding problem and I'm right now building a UI for my call assistance. So, so things going good and smooth, but",
+    "intent": "technical"
+  }
+}
