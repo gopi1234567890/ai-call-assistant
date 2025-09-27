@@ -31,7 +31,8 @@ jobs:
         run: pytest || echo "No tests yet"
 
       - name: Build Docker image
-        run: docker build -t ai-call-backend .
+        run: docker build -t ai-call-backend ./backend
+
 
       # (Optional) Push image to Docker Hub
       # - name: Log in to Docker Hub
