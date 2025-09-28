@@ -1,10 +1,11 @@
+import os
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-import os
 
 # Detect if running inside Docker
 IN_DOCKER = os.getenv("IN_DOCKER", "0") == "1"
 
+# Read credentials from environment variables
 DB_USER = os.getenv("POSTGRES_USER", "postgres")
 DB_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
 DB_HOST = os.getenv("POSTGRES_HOST", "db" if IN_DOCKER else "localhost")
