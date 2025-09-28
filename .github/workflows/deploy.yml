@@ -1,3 +1,14 @@
+- name: Debug – show repo tree
+  run: |
+    echo "=== Current directory ==="
+    pwd
+    echo "=== List files (root) ==="
+    ls -la
+    echo "=== List backend ==="
+    ls -la backend
+    echo "=== List frontend ==="
+    ls -la frontend
+
 name: Build and Push Docker Images
 
 on:
