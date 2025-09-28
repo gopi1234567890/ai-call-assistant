@@ -6,11 +6,12 @@ export default function CallLogs() {
   const [calls, setCalls] = useState([]);
   const [columns, setColumns] = useState([]);
   const [loading, setLoading] = useState(true);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     async function fetchCalls() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/rest/call_logs"); // replace with your FastAPI endpoint
+        const res = await fetch("${API_BASE_URL}/rest/call_logs"); // replace with your FastAPI endpoint
         const data = await res.json();
 
         // Convert API data to array of objects

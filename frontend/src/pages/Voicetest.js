@@ -7,6 +7,7 @@ export default function Voicetest() {
   const [intent, setIntent] = useState("");
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Start recording
   const startRecording = async () => {
@@ -34,7 +35,7 @@ export default function Voicetest() {
       formData.append("file", audioBlob, "recording.webm");
 
       try {
-        const response = await fetch("http://localhost:8000/testaudio/testaudio", {
+        const response = await fetch("${API_BASE_URL}/testaudio/testaudio", {
           method: "POST",
           body: formData,
         });

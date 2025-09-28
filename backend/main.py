@@ -17,7 +17,11 @@ from fastapi.middleware.cors import CORSMiddleware
 origins = [
     "http://localhost:3000",  # React dev server
     # You can add other URLs if needed
+     "http://frontend:80",
 ]
+
+
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,6 +30,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+import os
+
+# Detect if running inside Docker
+IN_DOCKER = os.getenv("IN_DOCKER", "0") == "1"
+
+DB_HOST = "db" if IN_DOCKER else "localhost"
+DB_USER = os.getenv("POSTGRES_USER", "postgres")
+DB_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
+DB_PORT = os.getenv("POSTGRES_PORT", "5432")
+DB_NAME = os.getenv("POSTGRES_DB", "call_db")
+
+DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
 
 app.include_router(trans.router, prefix='/twilio', tags=['twilio'])
 app.include_router(intentconfirm.app , prefix='/twilio', tags=['twilio'])
