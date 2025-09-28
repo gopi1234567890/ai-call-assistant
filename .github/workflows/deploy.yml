@@ -1,4 +1,12 @@
-- name: Debug – show repo tree
+
+
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [main]
+
+jobs:
   run: |
     echo "=== Current directory ==="
     pwd
@@ -8,14 +16,6 @@
     ls -la backend
     echo "=== List frontend ==="
     ls -la frontend
-
-name: Build and Push Docker Images
-
-on:
-  push:
-    branches: [main]
-
-jobs:
   build:
     runs-on: ubuntu-latest
 
