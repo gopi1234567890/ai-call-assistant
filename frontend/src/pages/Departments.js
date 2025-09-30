@@ -1,91 +1,180 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TopTabs from "../components/TopTabs";
 
-export default function Departments() {
-  const [activeTab, setActiveTab] = useState("departments");
-  const [selectedDepartment, setSelectedDepartment] = useState("support");
-
-  const departments = [
-    { name: "support", number: "1234", routingNumber: "123456" },
-    { name: "sales", number: "5678", routingNumber: "789012" },
-    { name: "marketing", number: "9012", routingNumber: "345678" },
+export default function DepartmentsPage() {
+  // Load departments from localStorage or use default
+  const defaultDepartments = [
+    { name: "Billing", phone: "+1234567890" },
+    { name: "Technical", phone: "+1987654321" },
   ];
 
-  const currentDept =
-    departments.find((dept) => dept.name === selectedDepartment) || departments[0];
+  const [departments, setDepartments] = useState([]);
+  const [newDeptName, setNewDeptName] = useState("");
+  const [newDeptPhone, setNewDeptPhone] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
+  const [message, setMessage] = useState("");
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("departments");
+    if (saved) {
+      setDepartments(JSON.parse(saved));
+    } else {
+      setDepartments(defaultDepartments);
+    }
+  }, []);
+
+  // Save to localStorage whenever departments change
+  useEffect(() => {
+    localStorage.setItem("departments", JSON.stringify(departments));
+  }, [departments]);
+
+  // Add new department
+  const handleAdd = () => {
+    if (!newDeptName || !newDeptPhone) return;
+    setDepartments((prev) => [...prev, { name: newDeptName, phone: newDeptPhone }]);
+    setNewDeptName("");
+    setNewDeptPhone("");
+    setMessage("Department added successfully!");
+    setTimeout(() => setMessage(""), 3000);
+  };
+
+  // Delete department
+  const handleDelete = (index) => {
+    if (window.confirm("Are you sure you want to delete this department?")) {
+      setDepartments((prev) => prev.filter((_, i) => i !== index));
+    }
+  };
+
+  // Save edits
+  const handleSaveEdit = (index, updatedDept) => {
+    setDepartments((prev) =>
+      prev.map((dept, i) => (i === index ? updatedDept : dept))
+    );
+    setEditIndex(null);
+    setMessage("Department updated successfully!");
+    setTimeout(() => setMessage(""), 3000);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      {/* Top Tabs */}
-      <TopTabs activeTab={activeTab} onTabClick={setActiveTab} />
+    <div>
+      <TopTabs />
+      <div className="pt-20 px-4 flex flex-col items-center">
+        <h2 className="text-2xl font-semibold mb-4">Departments</h2>
 
-      {/* Main Content */}
-      <div className="p-8">
-        {activeTab === "departments" && (
-          <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-            <h2 className="text-2xl font-semibold mb-6">Departments</h2>
-
-            <div className="flex items-center gap-4 mb-6">
-              <label className="font-medium">Select Department:</label>
-              <select
-                value={selectedDepartment}
-                onChange={(e) => setSelectedDepartment(e.target.value)}
-                className="border px-4 py-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-              >
-                {departments.map((dept) => (
-                  <option key={dept.name} value={dept.name}>
-                    {dept.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div className="flex justify-between bg-gray-100 px-4 py-2 rounded-lg">
-                <span className="font-medium">Department:</span>
-                <span>{currentDept.name}</span>
-              </div>
-              <div className="flex justify-between bg-gray-100 px-4 py-2 rounded-lg">
-                <span className="font-medium">Number:</span>
-                <span>{currentDept.number}</span>
-              </div>
-              <div className="flex justify-between bg-gray-100 px-4 py-2 rounded-lg">
-                <span className="font-medium">Routing Number:</span>
-                <span>{currentDept.routingNumber}</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
-                Add Department
-              </button>
-              <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">
-                Delete Department
-              </button>
-              <button className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition">
-                Suspend Department
-              </button>
-            </div>
+        {/* Add Department Form */}
+        <div className="w-full max-w-md bg-white shadow-md rounded-lg p-4 mb-6">
+          <h3 className="font-medium mb-2">Add New Department</h3>
+          <div className="flex gap-2 mb-2">
+            <input
+              type="text"
+              placeholder="Department Name"
+              value={newDeptName}
+              onChange={(e) => setNewDeptName(e.target.value)}
+              className="w-1/2 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              value={newDeptPhone}
+              onChange={(e) => setNewDeptPhone(e.target.value)}
+              className="w-1/2 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
           </div>
-        )}
+          <button
+            onClick={handleAdd}
+            className="py-1 px-4 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Add Department
+          </button>
+        </div>
 
-        {activeTab === "charts" && (
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center text-2xl">
-            Charts Content
-          </div>
-        )}
+        {/* Message */}
+        {message && <p className="text-green-600 mb-3">{message}</p>}
 
-        {activeTab === "calllogs" && (
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center text-2xl">
-            Call Logs Content
-          </div>
-        )}
-
-        {activeTab === "profile" && (
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center text-2xl">
-            Profile Content
-          </div>
-        )}
+        {/* Departments Table */}
+        <div className="w-full max-w-lg bg-white shadow-md rounded-lg p-4">
+          <table className="min-w-full border border-gray-300">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="px-4 py-2 border-b border-gray-300 text-left">Department</th>
+                <th className="px-4 py-2 border-b border-gray-300 text-left">Phone</th>
+                <th className="px-4 py-2 border-b border-gray-300 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {departments.map((dept, index) => (
+                <tr key={index} className="bg-white">
+                  {editIndex === index ? (
+                    <>
+                      <td className="px-4 py-2 border-b border-gray-300">
+                        <input
+                          type="text"
+                          value={dept.name}
+                          onChange={(e) =>
+                            setDepartments((prev) =>
+                              prev.map((d, i) =>
+                                i === index ? { ...d, name: e.target.value } : d
+                              )
+                            )
+                          }
+                          className="border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-red-500"
+                        />
+                      </td>
+                      <td className="px-4 py-2 border-b border-gray-300">
+                        <input
+                          type="text"
+                          value={dept.phone}
+                          onChange={(e) =>
+                            setDepartments((prev) =>
+                              prev.map((d, i) =>
+                                i === index ? { ...d, phone: e.target.value } : d
+                              )
+                            )
+                          }
+                          className="border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-red-500"
+                        />
+                      </td>
+                      <td className="px-4 py-2 border-b border-gray-300 flex gap-2">
+                        <button
+                          onClick={() => handleSaveEdit(index, dept)}
+                          className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={() => setEditIndex(null)}
+                          className="px-2 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="px-4 py-2 border-b border-gray-300">{dept.name}</td>
+                      <td className="px-4 py-2 border-b border-gray-300">{dept.phone}</td>
+                      <td className="px-4 py-2 border-b border-gray-300 flex gap-2">
+                        <button
+                          onClick={() => setEditIndex(index)}
+                          className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(index)}
+                          className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Toptab.css";
 
 export default function TopTabs() {
   const tabs = [
@@ -7,18 +8,17 @@ export default function TopTabs() {
     { path: "/call", label: "Call Logs" },
     { path: "/profile", label: "Profile" },
     { path: "/departments", label: "Departments" },
+    { path: "/test", label: "Voicetest" },
   ];
 
   return (
-    <div className="bg-[#241f1f] p-4 flex justify-center gap-6 shadow-md">
+    <div className="navbar">
       {tabs.map((tab) => (
         <NavLink
           key={tab.path}
           to={tab.path}
           className={({ isActive }) =>
-            `px-8 py-3 rounded-2xl font-medium text-white transition-colors ${
-              isActive ? "bg-[#fb2c2c]" : "bg-[#241f1f] hover:bg-gray-700"
-            }`
+            isActive ? "nav-link active" : "nav-link"
           }
         >
           {tab.label}

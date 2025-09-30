@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import CallLogs from "./pages/Calllogs";
 import Profile from "./pages/Profile";
 import Departments from "./pages/Departments";
+import Voicetest from "./pages/Voicetest";
+import Charts from './pages/Charts'
 
 function App() {
   // for now hardcode, later connect with login state
@@ -26,6 +28,15 @@ function App() {
         path="/departments"
         element={isLoggedIn ? <Departments /> : <Navigate to="/" />}
       />
+         <Route
+        path="/test"
+        element={isLoggedIn ? < Voicetest /> : <Navigate to="/" />}
+      />
+         <Route
+        path="/charts"
+        element={isLoggedIn ? < Charts /> : <Navigate to="/" />}
+      />
+
 
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" />} />

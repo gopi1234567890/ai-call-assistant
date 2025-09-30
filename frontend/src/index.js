@@ -8,6 +8,7 @@ import Departments from './pages/Departments';
 import Calllogs from './pages/Calllogs'
 import App from './App';
 import Voicetest from './pages/Voicetest';
+import Charts from './pages/Charts'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/departments" element={<Departments />} />
         <Route path="/test" element={<Voicetest/>} />
+        <Route path='/charts' element = {<Charts/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
