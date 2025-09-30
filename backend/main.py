@@ -46,10 +46,10 @@ DB_NAME = os.getenv("POSTGRES_DB", "call_db")
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 
-app.include_router(trans.router, prefix='/twilio', tags=['twilio'])
-app.include_router(intentconfirm.app , prefix='/twilio', tags=['twilio'])
-app.include_router(respond.router ,prefix='/twilio', tags=['twilio'] )
-app.include_router(twilio_stream.router, prefix = '/twilio', tags=['twilio'] )
+#app.include_router(trans.router, prefix='/twilio', tags=['twilio'])
+#app.include_router(intentconfirm.app , prefix='/twilio', tags=['twilio'])
+#app.include_router(respond.router ,prefix='/twilio', tags=['twilio'] )
+#app.include_router(twilio_stream.router, prefix = '/twilio', tags=['twilio'] )
 app.include_router(call_log.app, prefix='/rest', tags=['rest'])
 app.include_router(testrest.router, prefix='/testaudio', tags=['rest'])
 @app.get('/')
