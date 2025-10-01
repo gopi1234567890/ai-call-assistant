@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 
-from routes import twilio_stream 
-from routes import respond
+#from routes import twilio_stream 
+#from routes import respond
 #from schemas import websocket
-from routes import intentconfirm
-from routes import trans
+#from routes import intentconfirm
+#from routes import trans
 from routes import call_log
 from routes import testrest
 app =FastAPI()
