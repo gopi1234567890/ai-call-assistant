@@ -4,4 +4,4 @@ pydantic
 whisper
 torch
 twilio
-sqlalchmey
+sqlalchemy
