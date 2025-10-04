@@ -6,3 +6,4 @@ torch
 twilio
 asyncpg
 sqlalchemy
+python-multipart
