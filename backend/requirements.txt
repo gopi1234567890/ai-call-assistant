@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 pydantic
-whisper
+openai-whisper
 torch
 twilio
 asyncpg
